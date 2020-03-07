@@ -1,5 +1,6 @@
 const getTheGit = require('inquirer');
 const chalk = require('chalk');
+const db = require('./databaseconnect');
 
 
 // ===================================================
@@ -15,7 +16,7 @@ function main() {
     {
       type: 'list',
       name: 'mainChoice',
-      message: 'What would you like to do today?',
+      message: chalk.magentaBright.bold('What would you like to do today?'),
       choices: ['POST', 'BID', 'EXIT']
     }
 
@@ -46,7 +47,7 @@ function main() {
 }
 
 
-function hasHighestBid() {
+function hasHighestBid(currBid) {
   // TODO: check for current bid to the DB to see if its high enough.
     // go get highest bid data
     // is current bid higher than highest bid?
@@ -63,19 +64,29 @@ function postQuestions() {
       message: 'Give me the name of the Item...or else',
     },
     {
-        name: 'itemCategory',
-        message: 'Do you believe in love at first sight?....Yes? I need your category'
+      type: 'list',
+      name: 'itemCat',
+      message: '\ngive me a category?',
+      choices: ['Food', 'Animal', 'Tech', 'Other']
     },
     {
       type: 'number',
-      name: 'startingBid',
+      name: 'currBid',
       message: 'How much? '
     }
   ]).then(answers => {
-    console.log(`itemName: ${chalk.yellow(answers.itemName)}, itemCat: ${chalk.yellow(answers.itemCategory)}, startBid: ${chalk.yellow(answers.startingBid)}`);
+    console.log(`itemName: ${chalk.yellow(answers.itemName)}, itemCat: ${chalk.yellow(answers.itemCat)}, startBid: ${chalk.yellow(answers.currBid)}\n\n`);
     
-    if (hasHighestBid()) {
+    if (hasHighestBid(answers.currBid)) {
       //TODO: SAVE TO THEE DATABASE!!!
+      console.log(`itemName: ${chalk.yellow(answers.itemName)}, itemCat: ${chalk.yellow(answers.itemCat)}, startBid: ${chalk.yellow(answers.currBid)}\n\n`);
+
+      db.connectDB(answers.itemName, answers.itemCat, answers.currBid)
+        .then(function() {
+          console.log('hey!');
+          
+        });
+
     }
 
       // prompt the user again
