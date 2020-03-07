@@ -81,7 +81,11 @@ function postQuestions() {
       //TODO: SAVE TO THEE DATABASE!!!
       console.log(`itemName: ${chalk.yellow(answers.itemName)}, itemCat: ${chalk.yellow(answers.itemCat)}, startBid: ${chalk.yellow(answers.currBid)}\n\n`);
 
-      db.connectDB(answers.itemName, answers.itemCat, answers.currBid);
+      db.connectDB(answers.itemName, answers.itemCat, answers.currBid)
+        .then(function() {
+          console.log('hey!');
+          
+        });
 
     }
 

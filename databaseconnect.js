@@ -7,13 +7,13 @@ let connection = mysql.createConnection({
     database: "greatbay_db"
 });
 
-function connectDB() {
-    return connection.connect(function(err) {
+function connectDB(itemName, category, startingBid) {
+    connection.connect(function(err) {
         console.log('HEEEEYYYYYY');
         
         if (err) throw err;
         console.log('connected as id ' + connection.threadId);
-        createNew();
+        return createNew(itemName, category, startingBid);
     });
 
 }
@@ -22,9 +22,9 @@ function connectDB() {
 // insert new item
 
 // create with a starting bid and item name
-function createNew(itemtype, catagory, startingbid){
-    let stringtopass = "INSERT INTO `auctions` (`item_name`, `category`, `starting_bid`) VALUES (" +itemtype +","+ catagory+","+ startingbid+");";
-    // connection.query(stringtopass);
+function createNew(itemtype, category, startingbid){
+    let stringtopass = "INSERT INTO `auctions` (`item_name`, `category`, `starting_bid`) VALUES (" + itemtype +","+ category+","+ startingbid+");";
+    connection.query(stringtopass);
     connection.end();
 }
 
