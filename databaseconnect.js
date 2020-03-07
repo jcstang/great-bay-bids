@@ -29,9 +29,40 @@ function createNew(itemtype, category, startingbid){
 }
 
 
+
+
+//promise example
+function getLastRecord(itemName, itemCat, startBid)
+{
+    let stringtopass = "INSERT INTO `auctions` (`item_name`, `category`, `starting_bid`) VALUES (" + itemName +","+ itemCat + ","+ startBid +");";
+    return new Promise(function(resolve, reject) {
+        // The Promise constructor should catch any errors thrown on
+        // this tick. Alternately, try/catch and reject(err) on catch.
+        
+        connection.connect(function(err) {
+            console.log('HEEEEYYYYYY');
+            
+            if (err) throw err;
+            console.log('connected as id ' + connection.threadId);
+            connection.query(stringtopass, function (err, rows) {
+                // Call reject on error states,
+                // call resolve with results
+                if (err) {
+                    return reject(err);
+                }
+                resolve(rows);
+            });
+        });
+        
+    });
+}
+
+
+
 // ===================================================
 // exports
 // ===================================================
 module.exports = {
-    connectDB: connectDB
+    connectDB: connectDB,
+    getLastRecord: getLastRecord
 }
