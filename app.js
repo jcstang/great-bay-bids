@@ -1,41 +1,5 @@
 const getTheGit = require('inquirer');
-
-
-function main() {
-
-  getTheGit.prompt([
-    {
-      type: 'list',
-      name: 'searchtype',
-      message: 'Choose your search Type',
-      choices: ['POST', 'BID', 'EXIT']
-    }
-
-  ]).then(answers => {
-    // ===================================================
-    // BID
-    // ===================================================
-    if (answers.searchtype === 'BID') {
-      bidQuestions();
-    }
-
-    // ===================================================
-    // POST
-    // ===================================================
-    else if (answers.searchtype === 'POST') {
-      postQuestions();
-    }
-
-    // ===================================================
-    // EXIT
-    // ===================================================
-    else if (answers.searchtype === 'EXIT') {
-      // just exit the program
-      console.log('You are the weakest link, goodbye!');
-      process.exit(0);
-    }
-  })
-}
+const chalk = require('chalk');
 
 
 // ===================================================
@@ -44,10 +8,50 @@ function main() {
 main();
 
 
+
+function main() {
+
+  getTheGit.prompt([
+    {
+      type: 'list',
+      name: 'mainChoice',
+      message: 'What would you like to do today?',
+      choices: ['POST', 'BID', 'EXIT']
+    }
+
+  ]).then(answers => {
+    // ===================================================
+    // BID
+    // ===================================================
+    if (answers.mainChoice === 'BID') {
+      bidQuestions();
+    }
+
+    // ===================================================
+    // POST
+    // ===================================================
+    else if (answers.mainChoice === 'POST') {
+      postQuestions();
+    }
+
+    // ===================================================
+    // EXIT
+    // ===================================================
+    else if (answers.mainChoice === 'EXIT') {
+      // just exit the program
+      console.log('You are the weakest link, goodbye!');
+      process.exit(0);
+    }
+  })
+}
+
+
 function hasHighestBid() {
   // TODO: check for current bid to the DB to see if its high enough.
+    // go get highest bid data
+    // is current bid higher than highest bid?
   
-  //returns bool
+  return true;
 }
 
 
@@ -68,7 +72,8 @@ function postQuestions() {
       message: 'How much? '
     }
   ]).then(answers => {
-
+    console.log(`itemName: ${chalk.yellow(answers.itemName)}, itemCat: ${chalk.yellow(answers.itemCategory)}, startBid: ${chalk.yellow(answers.startingBid)}`);
+    
     if (hasHighestBid()) {
       //TODO: SAVE TO THEE DATABASE!!!
     }

@@ -1,0 +1,25 @@
+{
+  "name": "great-bay-bids",
+  "version": "1.0.0",
+  "description": "**Instructions**",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcstang/great-bay-bids.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcstang/great-bay-bids/issues"
+  },
+  "homepage": "https://github.com/jcstang/great-bay-bids#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "inquirer": "^7.0.6",
+    "mysql": "^2.18.1"
+  }
+}
